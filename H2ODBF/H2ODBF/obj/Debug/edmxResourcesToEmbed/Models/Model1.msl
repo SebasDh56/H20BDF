@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SistemaAguaModelStoreContainer" CdmEntityContainer="SistemaAguaEntities1">
+    <EntitySetMapping Name="Factura">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Factura">
+        <MappingFragment StoreEntitySet="Factura">
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_lectura" ColumnName="id_lectura" />
+          <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+          <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
+          <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="detalle_consumo" ColumnName="detalle_consumo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Incidencia">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Incidencia">
+        <MappingFragment StoreEntitySet="Incidencia">
+          <ScalarProperty Name="id_incidencia" ColumnName="id_incidencia" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+          <ScalarProperty Name="tipo_incidencia" ColumnName="tipo_incidencia" />
+          <ScalarProperty Name="fecha_reporte" ColumnName="fecha_reporte" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="detalle_resolucion" ColumnName="detalle_resolucion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lectura">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Lectura">
+        <MappingFragment StoreEntitySet="Lectura">
+          <ScalarProperty Name="id_lectura" ColumnName="id_lectura" />
+          <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+          <ScalarProperty Name="fecha_lectura" ColumnName="fecha_lectura" />
+          <ScalarProperty Name="lectura_anterior" ColumnName="lectura_anterior" />
+          <ScalarProperty Name="lectura_actual" ColumnName="lectura_actual" />
+          <ScalarProperty Name="consumo" ColumnName="consumo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medidor">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Medidor">
+        <MappingFragment StoreEntitySet="Medidor">
+          <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+          <ScalarProperty Name="numero_serie" ColumnName="numero_serie" />
+          <ScalarProperty Name="fecha_instalacion" ColumnName="fecha_instalacion" />
+          <ScalarProperty Name="tipo_medidor" ColumnName="tipo_medidor" />
+          <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="fecha_ultima_revision" ColumnName="fecha_ultima_revision" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pago">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Pago">
+        <MappingFragment StoreEntitySet="Pago">
+          <ScalarProperty Name="id_pago" ColumnName="id_pago" />
+          <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+          <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+          <ScalarProperty Name="monto_pagado" ColumnName="monto_pagado" />
+          <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recibo">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Recibo">
+        <MappingFragment StoreEntitySet="Recibo">
+          <ScalarProperty Name="id_recibo" ColumnName="id_recibo" />
+          <ScalarProperty Name="id_pago" ColumnName="id_pago" />
+          <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="metodo_entrega" ColumnName="metodo_entrega" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="SistemaAguaModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+          <ScalarProperty Name="estado_servicio" ColumnName="estado_servicio" />
+          <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

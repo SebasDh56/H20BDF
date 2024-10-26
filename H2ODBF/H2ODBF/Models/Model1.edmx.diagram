@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ae8c57a9d977462aa8ec47e1d1160a85" Name="Diagram1">
+        <EntityTypeShape EntityType="SistemaAguaModel.Factura" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Incidencia" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Lectura" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Medidor" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Pago" Width="1.5" PointX="9.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Recibo" Width="1.5" PointX="12" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaAguaModel.Usuario" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Factura__id_lect__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Factura__id_usua__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Pago__id_factura__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Incidenci__id_me__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Incidenci__id_us__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Lectura__id_medi__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Medidor__id_usua__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaAguaModel.FK__Recibo__id_pago__440B1D61" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

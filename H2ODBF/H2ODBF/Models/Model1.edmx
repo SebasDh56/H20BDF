@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SistemaAguaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="id_factura" />
+          </Key>
+          <Property Name="id_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="id_lectura" Type="int" />
+          <Property Name="fecha_emision" Type="date" Nullable="false" />
+          <Property Name="fecha_vencimiento" Type="date" Nullable="false" />
+          <Property Name="monto_total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+          <Property Name="detalle_consumo" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Incidencia">
+          <Key>
+            <PropertyRef Name="id_incidencia" />
+          </Key>
+          <Property Name="id_incidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="id_medidor" Type="int" />
+          <Property Name="tipo_incidencia" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fecha_reporte" Type="date" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+          <Property Name="detalle_resolucion" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Lectura">
+          <Key>
+            <PropertyRef Name="id_lectura" />
+          </Key>
+          <Property Name="id_lectura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_medidor" Type="int" />
+          <Property Name="fecha_lectura" Type="date" Nullable="false" />
+          <Property Name="lectura_anterior" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="lectura_actual" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="consumo" Type="decimal" Precision="11" Scale="2" StoreGeneratedPattern="Computed" />
+          <Property Name="estado" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Medidor">
+          <Key>
+            <PropertyRef Name="id_medidor" />
+          </Key>
+          <Property Name="id_medidor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero_serie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_instalacion" Type="date" Nullable="false" />
+          <Property Name="tipo_medidor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_ultima_revision" Type="date" />
+          <Property Name="id_usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="id_pago" />
+          </Key>
+          <Property Name="id_pago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_factura" Type="int" />
+          <Property Name="fecha_pago" Type="date" Nullable="false" />
+          <Property Name="monto_pagado" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_pago" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="id_recibo" />
+          </Key>
+          <Property Name="id_recibo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_pago" Type="int" />
+          <Property Name="fecha_emision" Type="date" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_entrega" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="correo" Type="varchar" MaxLength="50" />
+          <Property Name="tipo_usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estado_servicio" Type="varchar" MaxLength="10" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Factura__id_lect__3A81B327">
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lectura">
+              <PropertyRef Name="id_lectura" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="id_lectura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__id_usua__398D8EEE">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Incidenci__id_me__4D94879B">
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="0..1" />
+          <End Role="Incidencia" Type="Self.Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidor">
+              <PropertyRef Name="id_medidor" />
+            </Principal>
+            <Dependent Role="Incidencia">
+              <PropertyRef Name="id_medidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Incidenci__id_us__4CA06362">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Incidencia" Type="Self.Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Incidencia">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lectura__id_medi__31EC6D26">
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="0..1" />
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidor">
+              <PropertyRef Name="id_medidor" />
+            </Principal>
+            <Dependent Role="Lectura">
+              <PropertyRef Name="id_medidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medidor__id_usua__2D27B809">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Medidor">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__id_factura__403A8C7D">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="id_factura" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recibo__id_pago__440B1D61">
+          <End Role="Pago" Type="Self.Pago" Multiplicity="0..1" />
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pago">
+              <PropertyRef Name="id_pago" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="id_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaAguaModelStoreContainer">
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Incidencia" EntityType="Self.Incidencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lectura" EntityType="Self.Lectura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medidor" EntityType="Self.Medidor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recibo" EntityType="Self.Recibo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Factura__id_lect__3A81B327" Association="Self.FK__Factura__id_lect__3A81B327">
+            <End Role="Lectura" EntitySet="Lectura" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__id_usua__398D8EEE" Association="Self.FK__Factura__id_usua__398D8EEE">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Incidenci__id_me__4D94879B" Association="Self.FK__Incidenci__id_me__4D94879B">
+            <End Role="Medidor" EntitySet="Medidor" />
+            <End Role="Incidencia" EntitySet="Incidencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Incidenci__id_us__4CA06362" Association="Self.FK__Incidenci__id_us__4CA06362">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Incidencia" EntitySet="Incidencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lectura__id_medi__31EC6D26" Association="Self.FK__Lectura__id_medi__31EC6D26">
+            <End Role="Medidor" EntitySet="Medidor" />
+            <End Role="Lectura" EntitySet="Lectura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medidor__id_usua__2D27B809" Association="Self.FK__Medidor__id_usua__2D27B809">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Medidor" EntitySet="Medidor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__id_factura__403A8C7D" Association="Self.FK__Pago__id_factura__403A8C7D">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recibo__id_pago__440B1D61" Association="Self.FK__Recibo__id_pago__440B1D61">
+            <End Role="Pago" EntitySet="Pago" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaAguaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="id_factura" />
+          </Key>
+          <Property Name="id_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="id_lectura" Type="Int32" />
+          <Property Name="fecha_emision" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monto_total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="detalle_consumo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Lectura" Relationship="Self.FK__Factura__id_lect__3A81B327" FromRole="Factura" ToRole="Lectura" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Factura__id_usua__398D8EEE" FromRole="Factura" ToRole="Usuario" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__id_factura__403A8C7D" FromRole="Factura" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="Incidencia">
+          <Key>
+            <PropertyRef Name="id_incidencia" />
+          </Key>
+          <Property Name="id_incidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="id_medidor" Type="Int32" />
+          <Property Name="tipo_incidencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reporte" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="detalle_resolucion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Medidor" Relationship="Self.FK__Incidenci__id_me__4D94879B" FromRole="Incidencia" ToRole="Medidor" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Incidenci__id_us__4CA06362" FromRole="Incidencia" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Lectura">
+          <Key>
+            <PropertyRef Name="id_lectura" />
+          </Key>
+          <Property Name="id_lectura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_medidor" Type="Int32" />
+          <Property Name="fecha_lectura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="lectura_anterior" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="lectura_actual" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="consumo" Type="Decimal" Precision="11" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__id_lect__3A81B327" FromRole="Lectura" ToRole="Factura" />
+          <NavigationProperty Name="Medidor" Relationship="Self.FK__Lectura__id_medi__31EC6D26" FromRole="Lectura" ToRole="Medidor" />
+        </EntityType>
+        <EntityType Name="Medidor">
+          <Key>
+            <PropertyRef Name="id_medidor" />
+          </Key>
+          <Property Name="id_medidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero_serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_instalacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tipo_medidor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_ultima_revision" Type="DateTime" Precision="0" />
+          <Property Name="id_usuario" Type="Int32" />
+          <NavigationProperty Name="Incidencia" Relationship="Self.FK__Incidenci__id_me__4D94879B" FromRole="Medidor" ToRole="Incidencia" />
+          <NavigationProperty Name="Lectura" Relationship="Self.FK__Lectura__id_medi__31EC6D26" FromRole="Medidor" ToRole="Lectura" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Medidor__id_usua__2D27B809" FromRole="Medidor" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="id_pago" />
+          </Key>
+          <Property Name="id_pago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_factura" Type="Int32" />
+          <Property Name="fecha_pago" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monto_pagado" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_pago" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Pago__id_factura__403A8C7D" FromRole="Pago" ToRole="Factura" />
+          <NavigationProperty Name="Recibo" Relationship="Self.FK__Recibo__id_pago__440B1D61" FromRole="Pago" ToRole="Recibo" />
+        </EntityType>
+        <EntityType Name="Recibo">
+          <Key>
+            <PropertyRef Name="id_recibo" />
+          </Key>
+          <Property Name="id_recibo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_pago" Type="Int32" />
+          <Property Name="fecha_emision" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="monto" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="metodo_entrega" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Recibo__id_pago__440B1D61" FromRole="Recibo" ToRole="Pago" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado_servicio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__id_usua__398D8EEE" FromRole="Usuario" ToRole="Factura" />
+          <NavigationProperty Name="Incidencia" Relationship="Self.FK__Incidenci__id_us__4CA06362" FromRole="Usuario" ToRole="Incidencia" />
+          <NavigationProperty Name="Medidor" Relationship="Self.FK__Medidor__id_usua__2D27B809" FromRole="Usuario" ToRole="Medidor" />
+        </EntityType>
+        <Association Name="FK__Factura__id_lect__3A81B327">
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lectura">
+              <PropertyRef Name="id_lectura" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="id_lectura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__id_usua__398D8EEE">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__id_factura__403A8C7D">
+          <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura">
+              <PropertyRef Name="id_factura" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Incidenci__id_me__4D94879B">
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="0..1" />
+          <End Role="Incidencia" Type="Self.Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidor">
+              <PropertyRef Name="id_medidor" />
+            </Principal>
+            <Dependent Role="Incidencia">
+              <PropertyRef Name="id_medidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Incidenci__id_us__4CA06362">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Incidencia" Type="Self.Incidencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Incidencia">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lectura__id_medi__31EC6D26">
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="0..1" />
+          <End Role="Lectura" Type="Self.Lectura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medidor">
+              <PropertyRef Name="id_medidor" />
+            </Principal>
+            <Dependent Role="Lectura">
+              <PropertyRef Name="id_medidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medidor__id_usua__2D27B809">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Medidor" Type="Self.Medidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Medidor">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recibo__id_pago__440B1D61">
+          <End Role="Pago" Type="Self.Pago" Multiplicity="0..1" />
+          <End Role="Recibo" Type="Self.Recibo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pago">
+              <PropertyRef Name="id_pago" />
+            </Principal>
+            <Dependent Role="Recibo">
+              <PropertyRef Name="id_pago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaAguaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="Incidencia" EntityType="Self.Incidencia" />
+          <EntitySet Name="Lectura" EntityType="Self.Lectura" />
+          <EntitySet Name="Medidor" EntityType="Self.Medidor" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" />
+          <EntitySet Name="Recibo" EntityType="Self.Recibo" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Factura__id_lect__3A81B327" Association="Self.FK__Factura__id_lect__3A81B327">
+            <End Role="Lectura" EntitySet="Lectura" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__id_usua__398D8EEE" Association="Self.FK__Factura__id_usua__398D8EEE">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__id_factura__403A8C7D" Association="Self.FK__Pago__id_factura__403A8C7D">
+            <End Role="Factura" EntitySet="Factura" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Incidenci__id_me__4D94879B" Association="Self.FK__Incidenci__id_me__4D94879B">
+            <End Role="Medidor" EntitySet="Medidor" />
+            <End Role="Incidencia" EntitySet="Incidencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Incidenci__id_us__4CA06362" Association="Self.FK__Incidenci__id_us__4CA06362">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Incidencia" EntitySet="Incidencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lectura__id_medi__31EC6D26" Association="Self.FK__Lectura__id_medi__31EC6D26">
+            <End Role="Medidor" EntitySet="Medidor" />
+            <End Role="Lectura" EntitySet="Lectura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medidor__id_usua__2D27B809" Association="Self.FK__Medidor__id_usua__2D27B809">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Medidor" EntitySet="Medidor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recibo__id_pago__440B1D61" Association="Self.FK__Recibo__id_pago__440B1D61">
+            <End Role="Pago" EntitySet="Pago" />
+            <End Role="Recibo" EntitySet="Recibo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaAguaModelStoreContainer" CdmEntityContainer="SistemaAguaEntities1">
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_lectura" ColumnName="id_lectura" />
+                <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+                <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="detalle_consumo" ColumnName="detalle_consumo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Incidencia">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Incidencia">
+              <MappingFragment StoreEntitySet="Incidencia">
+                <ScalarProperty Name="id_incidencia" ColumnName="id_incidencia" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+                <ScalarProperty Name="tipo_incidencia" ColumnName="tipo_incidencia" />
+                <ScalarProperty Name="fecha_reporte" ColumnName="fecha_reporte" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="detalle_resolucion" ColumnName="detalle_resolucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lectura">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Lectura">
+              <MappingFragment StoreEntitySet="Lectura">
+                <ScalarProperty Name="id_lectura" ColumnName="id_lectura" />
+                <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+                <ScalarProperty Name="fecha_lectura" ColumnName="fecha_lectura" />
+                <ScalarProperty Name="lectura_anterior" ColumnName="lectura_anterior" />
+                <ScalarProperty Name="lectura_actual" ColumnName="lectura_actual" />
+                <ScalarProperty Name="consumo" ColumnName="consumo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medidor">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Medidor">
+              <MappingFragment StoreEntitySet="Medidor">
+                <ScalarProperty Name="id_medidor" ColumnName="id_medidor" />
+                <ScalarProperty Name="numero_serie" ColumnName="numero_serie" />
+                <ScalarProperty Name="fecha_instalacion" ColumnName="fecha_instalacion" />
+                <ScalarProperty Name="tipo_medidor" ColumnName="tipo_medidor" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha_ultima_revision" ColumnName="fecha_ultima_revision" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="id_pago" ColumnName="id_pago" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="fecha_pago" ColumnName="fecha_pago" />
+                <ScalarProperty Name="monto_pagado" ColumnName="monto_pagado" />
+                <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recibo">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Recibo">
+              <MappingFragment StoreEntitySet="Recibo">
+                <ScalarProperty Name="id_recibo" ColumnName="id_recibo" />
+                <ScalarProperty Name="id_pago" ColumnName="id_pago" />
+                <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="metodo_entrega" ColumnName="metodo_entrega" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="SistemaAguaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+                <ScalarProperty Name="estado_servicio" ColumnName="estado_servicio" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
