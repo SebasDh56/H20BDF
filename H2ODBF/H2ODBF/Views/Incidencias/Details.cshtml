@@ -1,0 +1,66 @@
+﻿@model H2ODBF.Models.Incidencia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Incidencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_incidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_incidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_reporte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_reporte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.detalle_resolucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.detalle_resolucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medidor.numero_serie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medidor.numero_serie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_incidencia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -130,6 +130,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IncidenciasController.cs" />
+    <Compile Include="Controllers\MedidorController.cs" />
     <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,9 +253,20 @@
     <Content Include="Views\Pago\Details.cshtml" />
     <Content Include="Views\Pago\Edit.cshtml" />
     <Content Include="Views\Pago\Index.cshtml" />
+    <Content Include="Views\Incidencias\Create.cshtml" />
+    <Content Include="Views\Incidencias\Delete.cshtml" />
+    <Content Include="Views\Incidencias\Details.cshtml" />
+    <Content Include="Views\Incidencias\Edit.cshtml" />
+    <Content Include="Views\Incidencias\Index.cshtml" />
+    <Content Include="Views\Medidor\Create.cshtml" />
+    <Content Include="Views\Medidor\Delete.cshtml" />
+    <Content Include="Views\Medidor\Details.cshtml" />
+    <Content Include="Views\Medidor\Edit.cshtml" />
+    <Content Include="Views\Medidor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

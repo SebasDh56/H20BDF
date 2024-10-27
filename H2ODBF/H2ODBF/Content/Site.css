@@ -1,4 +1,17 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.logo-container img {
+    width: 100px;
+    height: auto;
+}
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
     margin-top: 15px;
     padding-left: 15px;
@@ -18,3 +31,5 @@ select,
 textarea {
     max-width: 280px;
 }
+
+

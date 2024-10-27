@@ -1,0 +1,63 @@
+﻿@model IEnumerable<H2ODBF.Models.Incidencia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_incidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_reporte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.detalle_resolucion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medidor.numero_serie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_incidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_reporte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.detalle_resolucion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medidor.numero_serie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_incidencia }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_incidencia }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_incidencia })
+        </td>
+    </tr>
+}
+
+</table>

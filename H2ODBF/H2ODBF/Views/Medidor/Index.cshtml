@@ -1,0 +1,69 @@
+﻿@model IEnumerable<H2ODBF.Models.Medidor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero_serie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_instalacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo_medidor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ubicacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_ultima_revision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero_serie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_instalacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo_medidor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ubicacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_ultima_revision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_medidor }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_medidor }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_medidor })
+        </td>
+    </tr>
+}
+
+</table>
